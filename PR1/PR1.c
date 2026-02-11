@@ -27,12 +27,10 @@ typedef struct {
 Student db[MAX];
 int count = 0;
 
-/* ===== Utility ===== */
 void clearInput() {
     while (getchar() != '\n');
 }
 
-/* ===== Date validation ===== */
 int isLeap(int y) {
     return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
 }
@@ -45,10 +43,9 @@ int validDate(Date d) {
     return d.day >= 1 && d.day <= days[d.month - 1];
 }
 
-/* ===== File I/O ===== */
 void loadFromFile() {
     FILE *f = fopen(FILENAME, "rb");
-    if (!f) return; // файл ще не існує
+    if (!f) return; 
     fread(&count, sizeof(int), 1, f);
     fread(db, sizeof(Student), count, f);
     fclose(f);
@@ -65,7 +62,6 @@ void saveToFile() {
     fclose(f);
 }
 
-/* ===== Print ===== */
 void printStudent(int i) {
     Student s = db[i];
     printf("\n[%d] %s %s %s\n", i + 1, s.surname, s.name, s.patronymic);
@@ -83,7 +79,6 @@ void printShortList() {
         printf("[%d] %s %s %s\n", i + 1, db[i].surname, db[i].name, db[i].patronymic);
 }
 
-/* ===== Add ===== */
 void addStudent() {
     if (count >= MAX) {
         printf("База переповнена\n");
@@ -130,7 +125,6 @@ void addStudent() {
     printf("Студента додано\n");
 }
 
-/* ===== List all ===== */
 void listStudents() {
     if (count == 0) {
         printf("База порожня\n");
@@ -140,7 +134,6 @@ void listStudents() {
         printStudent(i);
 }
 
-/* ===== Edit ===== */
 void editStudent() {
     int n, c;
 
@@ -231,7 +224,6 @@ void editStudent() {
     printf("Редагування завершено\n");
 }
 
-/* ===== Delete ===== */
 void deleteStudent() {
     int n;
 
@@ -260,7 +252,6 @@ void deleteStudent() {
     printf("Студента видалено\n");
 }
 
-/* ===== Search anywhere ===== */
 void searchAny() {
     char key[50];
     printf("Введіть частину ПІБ або адреси для пошуку: ");
@@ -280,7 +271,6 @@ void searchAny() {
         printf("За цим запитом нічого не знайдено\n");
 }
 
-/* ===== Main menu ===== */
 int main() {
     loadFromFile();
 
@@ -308,7 +298,7 @@ int main() {
 
     } while(c != 0);
 
-    saveToFile(); // додаткове збереження при виході
+    saveToFile(); 
     printf("До побачення!\n");
     return 0;
 }
